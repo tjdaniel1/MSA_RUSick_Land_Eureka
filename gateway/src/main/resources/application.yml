@@ -1,0 +1,32 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*" # FRONT URL?
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+      routes:
+        - id: auth
+          uri: lb://AUTH
+          predicates:
+            - Path=/api/auth/**
+        - id: land
+          uri: lb://LAND
+          predicates:
+            - Path=/api/land/**
+        - id: iSale
+          uri: lb://ISALE
+          predicates:
+            - Path=/api/iSale/**
